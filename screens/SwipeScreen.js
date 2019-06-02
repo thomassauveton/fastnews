@@ -35,7 +35,15 @@ export default class SwipeScreen extends Component {
           onSwiped={() => console.log('onSwiped')}
           onSwipedLeft={() => console.log('onSwipedLeft')}
         >
-          <Card style={[styles.card, styles.card1]}><Text style={styles.label}>FOOT</Text></Card>
+          <Card style={[styles.card, styles.card1]}>
+          <Text style={styles.title}>Football</Text>
+          <Image
+            source={require("../assets/478x190.jpeg")}
+            style={styles.image2}
+          />
+          <Text style={styles.description}>Les Bleus s’imposent (2-0) sans forcer avant le déplacement en Turquie samedi… </Text>
+          </Card>
+
           <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}><Text style={styles.label}>B</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
@@ -89,12 +97,15 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity:0.5,
   },
   card1: {
     backgroundColor: 'white',
+    flex:1,
+    alignItems: 'center',
+  justifyContent: 'center',
   },
   card2: {
     backgroundColor: 'white',
@@ -153,5 +164,30 @@ const styles = StyleSheet.create({
     borderRadius:75,
     borderWidth:6,
     borderColor:'#fd267d',
+  },
+  image2: {
+    height: "40%",
+    width: "100%",
+    position: "absolute",
+    top: "17.59%"
+  },
+  title: {
+    top: "8%",
+    fontSize: 30,
+    position: "absolute",
+    backgroundColor: "transparent",
+    width: "40%",
+    height: "9.45%",
+    textAlign: "center",
+    
+  },
+
+  description: {
+    height: "50%",
+    width: "75%",
+    top: "65%",
+    position: "absolute",
+    textAlign: "center",
+    fontSize: 23
   }
 });
