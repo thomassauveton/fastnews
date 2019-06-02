@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -47,17 +43,17 @@ export default class SwipeScreen extends Component {
             <TouchableOpacity style={[styles.button,styles.red]} onPress={()=>{
               this.swiper.swipeLeft();
             }}>
-              <Image source={require('./assets/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+              <Image source={require('../assets/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button,styles.orange]} onPress={() => {
               this.swiper.goBackFromLeft();
             }}>
-              <Image source={require('./assets/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
+              <Image source={require('../assets/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button,styles.green]} onPress={()=>{
               this.swiper.swipeRight();
             }}>
-              <Image source={require('./assets/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
+              <Image source={require('../assets/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
             </TouchableOpacity>
           </View>
 
