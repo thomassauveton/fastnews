@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  ImageBackground
 } from 'react-native';
 
 import CardStack, { Card } from 'react-native-card-stack-swiper';
@@ -15,13 +16,18 @@ import CardStack, { Card } from 'react-native-card-stack-swiper';
 export default class SwipeScreen extends Component {
   render() {
     return (
+
+        <ImageBackground
+        style={{flex: 1}}
+        source={require("../assets/background.png")}
+      >
       <View style={{flex:1}}>
 
 
         <CardStack
           style={styles.content}
 
-          renderNoMoreCards={() => <Text style={{fontWeight:'700', fontSize:18, color:'gray'}}>No more cards :(</Text>}
+          renderNoMoreCards={() => <Text style={{fontWeight:'700', fontSize:18, color:'gray'}}>Vous avez lu toutes les news</Text>}
           ref={swiper => {
             this.swiper = swiper
           }}
@@ -29,7 +35,7 @@ export default class SwipeScreen extends Component {
           onSwiped={() => console.log('onSwiped')}
           onSwipedLeft={() => console.log('onSwipedLeft')}
         >
-          <Card style={[styles.card, styles.card1]}><Text style={styles.label}>A</Text></Card>
+          <Card style={[styles.card, styles.card1]}><Text style={styles.label}>FOOT</Text></Card>
           <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}><Text style={styles.label}>B</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
@@ -59,6 +65,7 @@ export default class SwipeScreen extends Component {
 
         </View>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
   card:{
     width: 320,
     height: 470,
-    backgroundColor: '#FE474C',
+    backgroundColor: 'white',
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -87,17 +94,17 @@ const styles = StyleSheet.create({
     shadowOpacity:0.5,
   },
   card1: {
-    backgroundColor: '#FE474C',
+    backgroundColor: 'white',
   },
   card2: {
-    backgroundColor: '#FEB12C',
+    backgroundColor: 'white',
   },
   label: {
     lineHeight: 400,
     textAlign: 'center',
     fontSize: 55,
     fontFamily: 'System',
-    color: '#ffffff',
+    color: '#000000',
     backgroundColor: 'transparent',
   },
   footer:{

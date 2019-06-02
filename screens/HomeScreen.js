@@ -75,7 +75,15 @@ const styles = StyleSheet.create({
       height: "14%",
       width: "30%",
       position: "absolute",
-      top: "23.4%"
+      top: "23.4%",
+      shadowColor: "rgba(0,0,0,1)",
+    shadowOffset: {
+      width: 2,
+      height: 3
+    },
+    shadowRadius: 4,
+    elevation: 12,
+    shadowOpacity: 0.58
     },
 
 
@@ -83,20 +91,39 @@ const styles = StyleSheet.create({
         height: "14%",
         width: "30%",
       position: "absolute",
-      top: "45.07%"
+      top: "45.07%",
+      shadowColor: "rgba(0,0,0,1)",
+    shadowOffset: {
+      width: 2,
+      height: 3
     },
+    shadowRadius: 4,
+    elevation: 12,
+    shadowOpacity: 0.58
+    },
+
     imageShadowNews: {
         height: "14%",
         width: "30%",
       position: "absolute",
-      top: "66.75%"
+      top: "66.75%",
+      shadowColor: "rgba(0,0,0,1)",
+    shadowOffset: {
+      width: 2,
+      height: 3
     },
+    shadowRadius: 4,
+    elevation: 12,
+    shadowOpacity: 0.58
+    },
+
     logoFooter: {
       height: "5.5%",
       width: "11%",
       top: "90%",
       position: "absolute"
     },
+
     textProfil: {
       height: "2%",
       width: "30.4%",
@@ -108,6 +135,7 @@ const styles = StyleSheet.create({
       textAlign: "center",
       fontWeight:"bold"
     },
+
     textTimer: {
       position: "absolute",
       backgroundColor: "transparent",
@@ -118,6 +146,7 @@ const styles = StyleSheet.create({
       height: "1.600985221674877%",
       fontWeight:"bold"
     },
+    
     textNews: {
       top: "81.65%",
       position: "absolute",

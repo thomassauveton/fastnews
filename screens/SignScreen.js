@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     top: "65%",
     position: "absolute",
     backgroundColor: "transparent",
-    color: "#fff",
+    color: "#248f91",
     fontSize: 17,
     width: "43.29%",
     height: "3.5%",
