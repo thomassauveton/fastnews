@@ -7,22 +7,67 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ImageBackground
+  ImageBackground,
+  ActivityIndicator,
+  FlatList,
 } from 'react-native';
 
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 
 
 export default class SwipeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: true,
+      articles:[]
+     };
+   }
+
+   componentWillMount(){
+    fetch("https://fastnews.herokuapp.com/")
+    .then(response => response.json())
+    .then((reponseJson)=> {
+      console.log("reponse json : ",reponseJson.data.articles[2].author)
+      this.setState({
+        result: false,
+        articles: reponseJson.data.articles
+      })
+    })
+    .catch(error=>console.log(error)) //to catch the errors if any
+    }
+
   render() {
-    return (
+ if(this.state.loading){
+  return( 
+    <View > 
+      <ActivityIndicator size="large" color="#0c9"/>
+    </View>
+)}
+
+  var author;
+  var title;
+  var urlToImage;
+  var description;
+  if(this.state.articles.length >0) {
+    // console.log("Titre  :", this.state.articles[2].author)
+    author =  this.state.articles[2].author;
+    title = this.state.articles[2].title;
+    urlToImage = this.state.articles[2].urlToImage;
+    description = this.state.articles[2].description;
+    console.log(this.state.articles[2].urlToImage)
+  }
+  
+    if(this.state.articles.length == 0){
+      return (<Text style={styles.title}>Loading ...</Text>);
+    } else {
+      return (
 
         <ImageBackground
         style={{flex: 1}}
         source={require("../assets/background.png")}
       >
       <View style={{flex:1}}>
-
 
         <CardStack
           style={styles.content}
@@ -35,22 +80,37 @@ export default class SwipeScreen extends Component {
           onSwiped={() => console.log('onSwiped')}
           onSwipedLeft={() => console.log('onSwipedLeft')}
         >
-          <Card style={[styles.card, styles.card1]}>
+          {/* <Card style={[styles.card, styles.card1]}>
           <Text style={styles.title}>Football</Text>
           <Image
             source={require("../assets/478x190.jpeg")}
             style={styles.image2}
           />
           <Text style={styles.description}>Les Bleus s’imposent (2-0) sans forcer avant le déplacement en Turquie samedi… </Text>
+          </Card> */}
+
+          <Card style={[styles.card, styles.card1]}>
+          <Text style={styles.title}>{title}</Text>
+          <Image
+            source={{uri : urlToImage}}
+            style={styles.image2}
+          />
+
+          <Text style={styles.description}>{description}</Text>
           </Card>
 
+          {/* <FlatList
+    data= {this.state.articles}
+    ItemSeparatorComponent = {this.FlatListItemSeparator}
+    renderItem= {item=> this.renderItem(item)}
+    keyExtractor= {item=>item.id.toString()}
+    /> */}
           <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}><Text style={styles.label}>B</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>E</Text></Card>
 
         </CardStack>
-
 
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
@@ -75,6 +135,8 @@ export default class SwipeScreen extends Component {
       </View>
       </ImageBackground>
     );
+    }
+    
   }
 }
 
@@ -172,12 +234,12 @@ const styles = StyleSheet.create({
     top: "17.59%"
   },
   title: {
-    top: "8%",
-    fontSize: 30,
+    top: "6%",
+    fontSize: 18,
     position: "absolute",
     backgroundColor: "transparent",
-    width: "40%",
-    height: "9.45%",
+    width: "90%",
+    height: "20%",
     textAlign: "center",
     
   },
@@ -188,6 +250,6 @@ const styles = StyleSheet.create({
     top: "65%",
     position: "absolute",
     textAlign: "center",
-    fontSize: 23
+    fontSize: 18
   }
 });
