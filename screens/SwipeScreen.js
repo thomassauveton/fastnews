@@ -14,6 +14,7 @@ import {
 
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { Button } from 'native-base'; 
+import Video from 'react-native-video';
 
 
 export default class SwipeScreen extends Component {
@@ -60,7 +61,7 @@ export default class SwipeScreen extends Component {
   }
   
     if(this.state.articles.length == 0){
-      return (<Text style={styles.title}>Loading ...</Text>);
+      return (<Image style={styles.loading} source={require('../assets/2.gif')} />);
     } else {
       return (
 
@@ -98,7 +99,7 @@ export default class SwipeScreen extends Component {
           />
 
           <Text style={styles.description}>{description}</Text>
-          <Button style={styles.button}><Text> Lire l'article </Text></Button>
+          <Button style={styles.viewMore}><Text> Lire l'article </Text></Button>
           </Card>
 
           {/* <FlatList
@@ -256,5 +257,21 @@ const styles = StyleSheet.create({
     position: "absolute",
     textAlign: "center",
     fontSize: 18
+  },
+  viewMore:{
+    height: "4.926108374384237%",
+    width: "48.40425531914894%",
+    top: '93%',
+    left:'25%',
+    position: "absolute",
+    backgroundColor: "rgb(230,230,230)",
+    justifyContent:"center",
+
+  },
+  loading:{
+    position: "absolute",
+    justifyContent:"center",
+    top : '50%',
+    left: '40%'
   }
 });
