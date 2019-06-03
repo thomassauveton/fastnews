@@ -44,7 +44,21 @@ export default class SwipeScreen extends Component {
           <Text style={styles.description}>Les Bleus s’imposent (2-0) sans forcer avant le déplacement en Turquie samedi… </Text>
           </Card>
 
-          <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}><Text style={styles.label}>B</Text></Card>
+          <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}>
+          
+          <Text style={styles.title}>Gilets Jaunes</Text>
+          <Image
+            source={require("../assets/648x415.jpeg")}
+            style={styles.image2}
+          />
+          <Text style={styles.description}>Samedi, 9.500 manifestants (dont 1.500 à Paris)  soit la plus faible mobilisation depuis le début du mouvement. </Text>
+          
+          
+          </Card>
+
+
+
+
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>E</Text></Card>
@@ -91,7 +105,7 @@ const styles = StyleSheet.create({
   },
   card:{
     width: 320,
-    height: 470,
+    height: 570,
     backgroundColor: 'white',
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
@@ -109,6 +123,9 @@ const styles = StyleSheet.create({
   },
   card2: {
     backgroundColor: 'white',
+    flex:1,
+    alignItems: 'center',
+  justifyContent: 'center',
   },
   label: {
     lineHeight: 400,
@@ -176,7 +193,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     position: "absolute",
     backgroundColor: "transparent",
-    width: "40%",
+    width: "100%",
     height: "9.45%",
     textAlign: "center",
     
