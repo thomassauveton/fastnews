@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import CardStack, { Card } from 'react-native-card-stack-swiper';
+import { Button } from 'native-base'; 
 
 
 export default class SwipeScreen extends Component {
@@ -97,25 +98,9 @@ export default class SwipeScreen extends Component {
           />
 
           <Text style={styles.description}>{description}</Text>
+          <Button style={styles.button}><Text> Lire l'article </Text></Button>
           </Card>
 
-<<<<<<< HEAD
-          <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}>
-          
-          <Text style={styles.title}>Gilets Jaunes</Text>
-          <Image
-            source={require("../assets/648x415.jpeg")}
-            style={styles.image2}
-          />
-          <Text style={styles.description}>Samedi, 9.500 manifestants (dont 1.500 à Paris)  soit la plus faible mobilisation depuis le début du mouvement. </Text>
-          
-          
-          </Card>
-
-
-
-
-=======
           {/* <FlatList
     data= {this.state.articles}
     ItemSeparatorComponent = {this.FlatListItemSeparator}
@@ -123,7 +108,6 @@ export default class SwipeScreen extends Component {
     keyExtractor= {item=>item.id.toString()}
     /> */}
           <Card style={[styles.card, styles.card2]} onSwipedLeft={() => alert('onSwipedLeft')}><Text style={styles.label}>B</Text></Card>
->>>>>>> 235ea56537d10ad813d0fd989a3bc1b0d9905f3e
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>E</Text></Card>
@@ -259,13 +243,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     position: "absolute",
     backgroundColor: "transparent",
-<<<<<<< HEAD
-    width: "100%",
-    height: "9.45%",
-=======
     width: "90%",
     height: "20%",
->>>>>>> 235ea56537d10ad813d0fd989a3bc1b0d9905f3e
     textAlign: "center",
     
   },
