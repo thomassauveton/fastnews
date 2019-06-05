@@ -8,13 +8,17 @@ import {
   ImageBackground,
   ActivityIndicator,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView,
+  TouchableWithoutFeedback
 
 } from 'react-native';
 
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { Button } from 'native-base'; 
-import Video from 'react-native-video';
+// import Video from 'react-native-video';
+import ComposentModal from '../components/modal';
+
 
 
 export default class SwipeScreen extends Component {
@@ -31,8 +35,13 @@ export default class SwipeScreen extends Component {
 
 // Cela rend visiblem le modal = changement d'état
 
- toggleModal(visible) {
-    this.setState({ modalVisible: visible });
+ toggleModal=()=> {
+   if(this.state.modalVisible){
+    this.setState({ modalVisible: false });
+   } else {
+    this.setState({ modalVisible: true });
+   }
+   
  }
 
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
@@ -65,13 +74,13 @@ export default class SwipeScreen extends Component {
   var url;
   if(this.state.articles.length >0) {
     // console.log("Titre  :", this.state.articles[2].author)
-    author =  this.state.articles[2].author;
-    title = this.state.articles[2].title;
-    urlToImage = this.state.articles[2].urlToImage;
-    description = this.state.articles[2].description;
-    url = this.state.articles[2].content;
+    author =  this.state.articles[5].author;
+    title = this.state.articles[5].title;
+    urlToImage = this.state.articles[5].urlToImage;
+    description = this.state.articles[5].description;
+    url = this.state.articles[5].content;
 
-    console.log(this.state.articles[2].urlToImage)
+    console.log(this.state.articles[5].urlToImage)
   }
   //Condition pour le loading de la page : le temps que la card recupere les data de l'API un ecran de loading s'affiche
 
@@ -134,46 +143,24 @@ export default class SwipeScreen extends Component {
          
          {/* Bouton pour lancer le Modal = Article complet */}
          
-          <Button style={styles.viewMore}
+          {/* <Button style={styles.viewMore}
           onPress = {() => {this.toggleModal(true)}}
            >
           <Text> Lire l'article </Text>
-          </Button>
-
-          {/* ZONE MODAL */}
-
-          {/* <Modal animationType = {"slide"} transparent = {false}
-               visible = {this.state.modalVisible}
-               onRequestClose = {() => { console.log("Modal has been closed.") } }>
-               
-               <View style = {styles.modal}>
-                   <Text>{url}</Text>
-                  
-                  <TouchableHighlight onPress = {() => {
-                     this.toggleModal(!this.state.modalVisible)}}>
-                     
-                     <Text style = {styles.text}>Close Modal</Text>
-                  </TouchableHighlight>
-               </View>
-            </Modal> */}
-            
-            {/* FIN MODAL */}
-
-
-            
+          </Button> */}
+            <TouchableHighlight style={styles.text2} onPress = {() => {this.toggleModal()}}>
+              <Text >Open Modal</Text>
+            </TouchableHighlight>
           </Card>
-
           {/* FIN CARD */}
           
-
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>B</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
           <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>E</Text></Card>
         
         </CardStack>
-
-
+        <ComposentModal visible={this.state.modalVisible} modal={this.toggleModal}/>
 
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
@@ -201,9 +188,7 @@ export default class SwipeScreen extends Component {
     
   }
 }
-
 // <----------------------- ZONE CSS ---------------------------->
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -250,7 +235,8 @@ const styles = StyleSheet.create({
   footer:{
     flex:1,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    zIndex:0
   },
   buttonContainer:{
     width:220,
@@ -338,14 +324,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#ede3f2',
     padding: 100
  },
- modal: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#f7021a',
-    padding: 100
- },
+
  text: {
     color: '#3f2949',
     marginTop: 10
+ },
+ screen:{
+  flex: 1
+ },
+ text2:{
+  backgroundColor:'red',
+  position:'absolute',
+  bottom:10,
+  padding:15
  }
+
+
 });
