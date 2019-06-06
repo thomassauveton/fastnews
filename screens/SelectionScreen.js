@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Container, Header, Content,Note, List, ListItem, Thumbnail, Text, Left, Body, Right, Button,View } from 'native-base';
 import {note, numberOfLines,ImageBackground} from "react-native";
 import Swipeout from 'react-native-swipeout';
+import { connect } from 'react-redux';
 
-export default class SelectionScreen extends Component {
+
+ class SelectionScreen extends Component {
   render() {
     var swipeoutBtns = [
         {
@@ -47,3 +49,12 @@ export default class SelectionScreen extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return console.log("Affichage",state)
+  // return { pictures: state.pictures }
+
+}
+export default connect(
+  mapStateToProps,
+  null
+)(SelectionScreen);

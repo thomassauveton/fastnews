@@ -13,10 +13,9 @@ import {
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { Button } from 'native-base'; 
 // import Video from 'react-native-video';
+import {connect} from 'react-redux'
 
-
-
-export default class SwipeScreen1 extends Component {
+class SwipeScreen extends Component {
  
  //Constructor avec les états de départ en props 
   constructor(props) {
@@ -31,7 +30,7 @@ export default class SwipeScreen1 extends Component {
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
-    fetch("https://fastnews.herokuapp.com/")
+    fetch("http://10.2.3.212:3000/")
     .then(response => response.json())
     .then((reponseJson)=> {
       // console.log("reponse json : ",reponseJson.data.articles[2].author)
@@ -49,7 +48,8 @@ export default class SwipeScreen1 extends Component {
   //console.log(this.state.articles[6].url)
   // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
-  const photoUrl = 'http://fastnews.herokuapp.com/info?url=' + this.state.articles[10].url;
+
+  const photoUrl = 'http://10.2.3.212:3000/info?url=' + "http://google.fr";
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
@@ -64,6 +64,7 @@ export default class SwipeScreen1 extends Component {
       // ImageTools.getImageFromBase64(data).then(function(image) {
       //     console.log("Image --> ", image)
       // });
+      this.props.handleScreenShot(data)
       this.setState({image: `data:image/gif;base64,${data}`})
   }).catch((err)=> {
       console.log('err: ' + err.message);
@@ -346,3 +347,20 @@ const styles = StyleSheet.create({
 
 
 });
+function mapDispatchToProps(dispatch) {
+  return {
+    handleScreenShot(data) { 
+      // console.log("Redux : ",data)
+     dispatch( {
+     type: 'get',
+     data
+
+    }) 
+   }
+  }
+ }
+ 
+ export default connect(
+   null, 
+   mapDispatchToProps
+ )(SwipeScreen);
