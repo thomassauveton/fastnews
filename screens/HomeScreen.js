@@ -19,9 +19,9 @@ export default class HomeScreen extends Component {
           </TouchableOpacity>
         </Center>
         <Center horizontal>
-        <TouchableOpacity style={styles.imageShadowTimer}onPress={() => this.props.navigation.navigate('Timer')}>
+        <TouchableOpacity style={styles.imageShadowTimer}onPress={() => this.props.navigation.navigate('Selection')}>
           <Image
-            source={require("../assets/iconetimer.png")}
+            source={require("../assets/savefiles.png")}
             style={styles.image}
           />
           </TouchableOpacity>
@@ -44,7 +44,7 @@ export default class HomeScreen extends Component {
         </Center>
         <Text style={styles.textProfil}>PROFIL</Text>
         <Center horizontal>
-          <Text style={styles.textTimer}>TEMPS DE TRAJET</Text>
+          <Text style={styles.textTimer}>MA SELECTION</Text>
         </Center>
         <Center horizontal>
           <Text style={styles.textNews}>NEWS DU JOUR</Text>

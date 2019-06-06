@@ -42,7 +42,7 @@ export default class ModalComponent extends Component {
     <TouchableOpacity> 
         <TouchableWithoutFeedback> 
             <View style={{backgroundColor:'red'}}>
-                <Image style={{ resizeMode:'contain', flex:1, width:'100%'}} source={require("../assets/example.png")}
+                <Image style={{ resizeMode:'stretch', flex:1, width:'100%'}} source={require("../assets/image.jpg")}
                 />
 
                 <TouchableHighlight style={styles.buttonClose} onPress={this.props.modal}>

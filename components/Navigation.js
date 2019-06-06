@@ -10,7 +10,7 @@ import SignScreen from '../screens/SignScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SwipeScreen from '../screens/SwipeScreen';
 import AccountScreen from '../screens/AccountScreen';
-import TimerScreen from '../screens/TimerScreen';
+import SelectionScreen from '../screens/SelectionScreen';
 
 // Here, I can create the global navigation which both contains my three first
 // page (without the bottom tab) as well as the whole MainNavigator component
@@ -19,7 +19,7 @@ var StackNavigator = createStackNavigator({
   SignIn: SignScreen,
   Home: HomeScreen,
   Profil: AccountScreen,
-  Timer: TimerScreen,
+  Selection: SelectionScreen,
   News: SwipeScreen,
 
   // MainNavigator must my put inside the stack navigator (necessaire pour
