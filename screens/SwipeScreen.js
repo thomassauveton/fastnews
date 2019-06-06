@@ -7,21 +7,16 @@ import {
   Image,
   ImageBackground,
   ActivityIndicator,
-  Modal,
-  TouchableHighlight,
-  ScrollView,
-  TouchableWithoutFeedback
 
 } from 'react-native';
 
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { Button } from 'native-base'; 
 // import Video from 'react-native-video';
-import ComposentModal from '../components/modal';
 
 
 
-export default class SwipeScreen extends Component {
+export default class SwipeScreen1 extends Component {
  
  //Constructor avec les états de départ en props 
   constructor(props) {
@@ -29,20 +24,9 @@ export default class SwipeScreen extends Component {
     this.state = {
       result: true,
       articles:[],
-      modalVisible: false,
+      image : null,
      };
    }
-
-// Cela rend visiblem le modal = changement d'état
-
- toggleModal=()=> {
-   if(this.state.modalVisible){
-    this.setState({ modalVisible: false });
-   } else {
-    this.setState({ modalVisible: true });
-   }
-   
- }
 
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
@@ -50,7 +34,7 @@ export default class SwipeScreen extends Component {
     fetch("https://fastnews.herokuapp.com/")
     .then(response => response.json())
     .then((reponseJson)=> {
-      console.log("reponse json : ",reponseJson.data.articles[2].author)
+      // console.log("reponse json : ",reponseJson.data.articles[2].author)
       this.setState({
         result: false,
         articles: reponseJson.data.articles
@@ -58,6 +42,37 @@ export default class SwipeScreen extends Component {
     })
     .catch(error=>console.log(error)) //to catch the errors if any
     }
+
+    //Function qui s edéclanche au boutton du like
+ handelpress(){
+
+  //console.log(this.state.articles[6].url)
+  //TODO http://fastnews.herokuapp.com/info?url=
+  // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
+  const photoUrl = 'http://192.168.43.236:3000/info?url=' + this.state.articles[10].url;
+  console.log(photoUrl)
+  //envoie de la const photourl au backend 
+  fetch(photoUrl, {
+      method: 'GET',
+
+      //reponse du back au front
+  }).then((response)=> {
+      return response._bodyText;
+      //Sa convertie en Data pour générer l'image
+  }).then((data)=> {
+      //console.log('second res: ' + JSON.stringify(data));
+      // ImageTools.getImageFromBase64(data).then(function(image) {
+      //     console.log("Image --> ", image)
+      // });
+      this.setState({image: `data:image/gif;base64,${data}`})
+  }).catch((err)=> {
+      console.log('err: ' + err.message);
+  });
+//   console.log(text)
+// }
+//Fuction de swipe sur le boutton 
+this.swiper.swipeRight();
+}
 
   render() {
  if(this.state.loading){
@@ -74,13 +89,13 @@ export default class SwipeScreen extends Component {
   var url;
   if(this.state.articles.length >0) {
     // console.log("Titre  :", this.state.articles[2].author)
-    author =  this.state.articles[5].author;
-    title = this.state.articles[5].title;
-    urlToImage = this.state.articles[5].urlToImage;
-    description = this.state.articles[5].description;
-    url = this.state.articles[5].content;
+    author =  this.state.articles[10].author;
+    title = this.state.articles[10].title;
+    urlToImage = this.state.articles[10].urlToImage;
+    description = this.state.articles[10].description;
+    url = this.state.articles[10].url;
 
-    console.log(this.state.articles[5].urlToImage)
+    // console.log(this.state.articles[10].urlToImage)
   }
   //Condition pour le loading de la page : le temps que la card recupere les data de l'API un ecran de loading s'affiche
 
@@ -141,16 +156,6 @@ export default class SwipeScreen extends Component {
 
           <Text style={styles.description}>{description}</Text>
          
-         {/* Bouton pour lancer le Modal = Article complet */}
-         
-          {/* <Button style={styles.viewMore}
-          onPress = {() => {this.toggleModal(true)}}
-           >
-          <Text> Lire l'article </Text>
-          </Button> */}
-            <TouchableHighlight style={styles.text2} onPress = {() => {this.toggleModal()}}>
-              <Text >Open Modal</Text>
-            </TouchableHighlight>
           </Card>
           {/* FIN CARD */}
           
@@ -160,7 +165,6 @@ export default class SwipeScreen extends Component {
           <Card style={[styles.card, styles.card1]}><Text style={styles.label}>E</Text></Card>
         
         </CardStack>
-        <ComposentModal visible={this.state.modalVisible} modal={this.toggleModal}/>
 
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
@@ -174,9 +178,10 @@ export default class SwipeScreen extends Component {
             }}>
               <Image source={require('../assets/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
             </TouchableOpacity>
+            {/* Utulisation de la fonction   */}
             <TouchableOpacity style={[styles.button,styles.green]} onPress={()=>{
-              this.swiper.swipeRight();
-            }}>
+              this.handelpress();}}
+               image={this.state.image} >
               <Image source={require('../assets/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
             </TouchableOpacity>
           </View>
