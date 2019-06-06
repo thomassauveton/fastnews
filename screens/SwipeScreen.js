@@ -47,9 +47,9 @@ export default class SwipeScreen1 extends Component {
  handelpress(){
 
   //console.log(this.state.articles[6].url)
-  //TODO http://fastnews.herokuapp.com/info?url=
+  // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
-  const photoUrl = 'http://192.168.43.236:3000/info?url=' + this.state.articles[10].url;
+  const photoUrl = 'http://fastnews.herokuapp.com/info?url=' + this.state.articles[10].url;
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
