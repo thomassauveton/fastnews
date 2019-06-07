@@ -20,6 +20,7 @@ class SwipeScreen extends Component {
  //Constructor avec les états de départ en props 
   constructor(props) {
     super(props);
+    this.indexArticle = 0;
     this.state = {
       result: true,
       articles:[],
@@ -30,7 +31,7 @@ class SwipeScreen extends Component {
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
-    fetch("http://172.20.10.3:3000/")
+    fetch("http://10.2.3.212:3000/")
     .then(response => response.json())
     .then((reponseJson)=> {
       // console.log("reponse json : ",reponseJson.data.articles[2].author)
@@ -48,8 +49,10 @@ class SwipeScreen extends Component {
   //console.log(this.state.articles[6].url)
   // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
-console.log("toto",this.props.description)
-  const photoUrl = 'http://172.20.10.3:3000/info?url=' + this.state.articles.url;
+  var url = this.state.articles[this.indexArticle].url;
+  var title = this.state.articles[this.indexArticle].title;
+  var description = this.state.articles[this.indexArticle].description;
+  const photoUrl = 'http://10.2.3.212:3000/info?url=' + url;
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
@@ -64,6 +67,8 @@ console.log("toto",this.props.description)
       // ImageTools.getImageFromBase64(data).then(function(image) {
       //     console.log("Image --> ", image)
       // });
+
+      console.log({ data, title, description , url });
       this.props.handleScreenShot(data)
       this.setState({image: `data:image/gif;base64,${data}`})
   }).catch((err)=> {
@@ -202,12 +207,14 @@ this.swiper.swipeRight();
               <Image source={require('../assets/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button,styles.orange]} onPress={() => {
+              this.indexArticle++;
               this.swiper.goBackFromLeft();
             }}>
               <Image source={require('../assets/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
             </TouchableOpacity>
             {/* Utulisation de la fonction   */}
             <TouchableOpacity style={[styles.button,styles.green]} onPress={()=>{
+              this.indexArticle++;
               this.handelpress();}}
                image={this.state.image} >
               <Image source={require('../assets/green.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
@@ -384,4 +391,3 @@ const styles = StyleSheet.create({
 });
 
 export default SwipeScreen;
-
