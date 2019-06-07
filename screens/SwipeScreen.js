@@ -30,7 +30,7 @@ class SwipeScreen extends Component {
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
-    fetch("http://192.168.43.236:3000/")
+    fetch("http://172.20.10.2:3000/")
     .then(response => response.json())
     .then((reponseJson)=> {
       // console.log("reponse json : ",reponseJson.data.articles[2].author)
@@ -48,8 +48,8 @@ class SwipeScreen extends Component {
   //console.log(this.state.articles[6].url)
   // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
-
-  const photoUrl = 'http://192.168.43.236:3000/info?url=' + "http://google.fr";
+console.log("toto",this.props.url)
+  const photoUrl = 'http://172.20.10.2:3000/info?url=' + this.state.articles[8].url;
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
@@ -88,16 +88,49 @@ this.swiper.swipeRight();
   var urlToImage;
   var description;
   var url;
-  if(this.state.articles.length >0) {
-    // console.log("Titre  :", this.state.articles[2].author)
-    author =  this.state.articles[5].author;
-    title = this.state.articles[5].title;
-    urlToImage = this.state.articles[5].urlToImage;
-    description = this.state.articles[5].description;
-    url = this.state.articles[5 ].url;
 
-    // console.log(this.state.articles[10].urlToImage)
-  }
+  var newsData = [];
+  var NewsList;
+    if(this.state.articles.length >0) {
+    
+    
+      NewsList = this.state.articles.map(function(news,i){
+        return <News author={news.author} title={news.title} urlToImage={news.urlToImage} description={news.description} url={news.url} key={i}/>;
+
+      })
+
+
+
+      }
+
+
+
+    
+
+
+  // for (let i = 0; i < this.state.articles.length; i++) {
+    
+  //     // console.log("Titre  :", this.state.articles[2].author)
+  //     author =  this.state.articles[i].author;
+  //     title = this.state.articles[i].title;
+  //     urlToImage = this.state.articles[i].urlToImage;
+  //     description = this.state.articles[i].description;
+  //     url = this.state.articles[i].url; 
+  //      console.log("Titre Article",this.state.articles[i].title);
+  //     // console.log(this.state.articles[10].urlToImage)
+  //   }
+  //  }
+
+  // if(this.state.articles.length >0) {
+  //   // console.log("Titre  :", this.state.articles[2].author)
+  //   author =  this.state.articles[5].author;
+  //   title = this.state.articles[5].title;
+  //   urlToImage = this.state.articles[5].urlToImage;
+  //   description = this.state.articles[5].description;
+  //   url = this.state.articles[5 ].url;
+
+  //   // console.log(this.state.articles[10].urlToImage)
+  // }
   //Condition pour le loading de la page : le temps que la card recupere les data de l'API un ecran de loading s'affiche
 
     if(this.state.articles.length == 0){
@@ -138,32 +171,10 @@ this.swiper.swipeRight();
 
           onSwiped={() => console.log('onSwiped')}
           onSwipedLeft={() => console.log('onSwipedLeft')}
+          
         >
 
-          {/* ELEMENT CARD  */}
-
-          <Card style={[styles.card, styles.card1]}>
-        
-        {/* Champs pour l'affichage du titre de l'article */}
-        
-          <Text style={styles.title}>{title}</Text>
-        
-        {/* Champs pour l'affichage de l'image de l'article  */}
-          <Image
-            source={{uri : urlToImage}}
-            style={styles.image2}
-          />
-      {/* Champs pour l'affichage de la description de l'article */}
-
-          <Text style={styles.description}>{description}</Text>
-         
-          </Card>
-          {/* FIN CARD */}
-          
-          <Card style={[styles.card, styles.card2]}><Text style={styles.label}>B</Text></Card>
-          <Card style={[styles.card, styles.card1]}><Text style={styles.label}>C</Text></Card>
-          <Card style={[styles.card, styles.card2]}><Text style={styles.label}>D</Text></Card>
-          <Card style={[styles.card, styles.card1]}><Text style={styles.label}>E</Text></Card>
+        { NewsList }
         
         </CardStack>
 
@@ -194,6 +205,46 @@ this.swiper.swipeRight();
     
   }
 }
+
+class News extends Component {
+  
+   
+ 
+   render() {
+
+        return (
+
+
+        <Card style={[styles.card, styles.card1]}>
+        
+        {/* Champs pour l'affichage du titre de l'article */}
+        
+          <Text style={styles.title}>{this.props.title}</Text>
+        
+        {/* Champs pour l'affichage de l'image de l'article  */}
+          <Image
+            source={{uri : this.props.urlToImage}}
+            style={styles.image2}
+          />
+      {/* Champs pour l'affichage de la description de l'article */}
+
+          <Text style={styles.description}>{this.props.description}</Text>
+         
+          </Card>
+
+ 
+       
+        )
+   }
+  }
+     
+     
+   
+ 
+
+
+
+
 // <----------------------- ZONE CSS ---------------------------->
 const styles = StyleSheet.create({
   container: {
@@ -347,20 +398,6 @@ const styles = StyleSheet.create({
 
 
 });
-function mapDispatchToProps(dispatch) {
-  return {
-    handleScreenShot(data) { 
-   //   console.log("Redux (HandleScreenShot) : ",data)
-     dispatch( {
-     type: 'get',
-     data
 
-    }) 
-   }
-  }
- }
- 
- export default connect(
-   null, 
-   mapDispatchToProps
- )(SwipeScreen);
+export default SwipeScreen;
+
