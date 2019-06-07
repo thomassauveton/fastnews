@@ -30,7 +30,7 @@ class SwipeScreen extends Component {
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
-    fetch("http://172.20.10.2:3000/")
+    fetch("http://172.20.10.3:3000/")
     .then(response => response.json())
     .then((reponseJson)=> {
       // console.log("reponse json : ",reponseJson.data.articles[2].author)
@@ -48,8 +48,8 @@ class SwipeScreen extends Component {
   //console.log(this.state.articles[6].url)
   // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
-console.log("toto",this.props.url)
-  const photoUrl = 'http://172.20.10.2:3000/info?url=' + this.state.articles[8].url;
+console.log("toto",this.props.description)
+  const photoUrl = 'http://172.20.10.3:3000/info?url=' + this.state.articles.url;
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
@@ -95,7 +95,22 @@ this.swiper.swipeRight();
     
     
       NewsList = this.state.articles.map(function(news,i){
-        return <News author={news.author} title={news.title} urlToImage={news.urlToImage} description={news.description} url={news.url} key={i}/>;
+        return  (<Card style={[styles.card, styles.card1]}>
+        
+        {/* Champs pour l'affichage du titre de l'article */}
+        
+          <Text style={styles.title}>{news.title}</Text>
+        
+        {/* Champs pour l'affichage de l'image de l'article  */}
+          <Image
+            source={{uri : news.urlToImage}}
+            style={styles.image2}
+          />
+      {/* Champs pour l'affichage de la description de l'article */}
+
+          <Text style={styles.description}>{news.description}</Text>
+         
+        </Card>);
 
       })
 
@@ -171,6 +186,7 @@ this.swiper.swipeRight();
 
           onSwiped={() => console.log('onSwiped')}
           onSwipedLeft={() => console.log('onSwipedLeft')}
+         
           
         >
 
@@ -206,38 +222,6 @@ this.swiper.swipeRight();
   }
 }
 
-class News extends Component {
-  
-   
- 
-   render() {
-
-        return (
-
-
-        <Card style={[styles.card, styles.card1]}>
-        
-        {/* Champs pour l'affichage du titre de l'article */}
-        
-          <Text style={styles.title}>{this.props.title}</Text>
-        
-        {/* Champs pour l'affichage de l'image de l'article  */}
-          <Image
-            source={{uri : this.props.urlToImage}}
-            style={styles.image2}
-          />
-      {/* Champs pour l'affichage de la description de l'article */}
-
-          <Text style={styles.description}>{this.props.description}</Text>
-         
-          </Card>
-
- 
-       
-        )
-   }
-  }
-     
      
    
  
