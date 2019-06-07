@@ -30,7 +30,7 @@ class SwipeScreen extends Component {
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
-    fetch("http://10.2.3.212:3000/")
+    fetch("http://192.168.43.236:3000/")
     .then(response => response.json())
     .then((reponseJson)=> {
       // console.log("reponse json : ",reponseJson.data.articles[2].author)
@@ -49,7 +49,7 @@ class SwipeScreen extends Component {
   // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
 
-  const photoUrl = 'http://10.2.3.212:3000/info?url=' + "http://google.fr";
+  const photoUrl = 'http://192.168.43.236:3000/info?url=' + "http://google.fr";
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
@@ -90,11 +90,11 @@ this.swiper.swipeRight();
   var url;
   if(this.state.articles.length >0) {
     // console.log("Titre  :", this.state.articles[2].author)
-    author =  this.state.articles[10].author;
-    title = this.state.articles[10].title;
-    urlToImage = this.state.articles[10].urlToImage;
-    description = this.state.articles[10].description;
-    url = this.state.articles[10].url;
+    author =  this.state.articles[5].author;
+    title = this.state.articles[5].title;
+    urlToImage = this.state.articles[5].urlToImage;
+    description = this.state.articles[5].description;
+    url = this.state.articles[5 ].url;
 
     // console.log(this.state.articles[10].urlToImage)
   }
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
 function mapDispatchToProps(dispatch) {
   return {
     handleScreenShot(data) { 
-      // console.log("Redux : ",data)
+   //   console.log("Redux (HandleScreenShot) : ",data)
      dispatch( {
      type: 'get',
      data

@@ -50,8 +50,8 @@ import { connect } from 'react-redux';
   }
 }
 function mapStateToProps(state) {
-  return console.log("Affichage",state)
-  // return { pictures: state.pictures }
+  console.log("Affichage",state)
+  return { pictures: state }
 
 }
 export default connect(
