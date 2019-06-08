@@ -14,7 +14,7 @@ import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { Button } from 'native-base'; 
 // import Video from 'react-native-video';
 import {connect} from 'react-redux'
-
+console.disableYellowBox=true;
 class SwipeScreen extends Component {
  
  //Constructor avec les états de départ en props 
@@ -28,6 +28,7 @@ class SwipeScreen extends Component {
      };
    }
 
+   
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
@@ -64,7 +65,9 @@ class SwipeScreen extends Component {
       return response._bodyText;
       //Sa convertie en Data pour générer l'image
   }).then((data)=> {
+    
       console.log( title, description , "url",url, "photoUrl", photoUrl, "urlToImage",urlToImage );
+
       this.props.handleScreenShot(`data:image/gif;base64,${data}`, title, description, photoUrl, urlToImage)
       this.setState({image: `data:image/gif;base64,${data}`})
   }).catch((err)=> {

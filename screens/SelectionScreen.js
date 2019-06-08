@@ -24,6 +24,7 @@ import {
 } from "react-native";
 import Swipeout from 'react-native-swipeout';
 import {connect} from 'react-redux';
+console.disableYellowBox=true;
 
 class SelectionScreen extends Component {
 
@@ -66,8 +67,8 @@ class SelectionScreen extends Component {
   
                 {/* <TouchableOpacity style={styles.imageShadowTimer}activeOpacity = { .5 } onPress={ this.callFun }>> */}
                 {/* <Image source={require('../assets/screenshot2.jpg')} /> */}
-                <Button transparent >
-                  <Text>View</Text>
+                <Button transparent>
+                  <Text>Lire</Text>
                 </Button>
                 {/* </TouchableOpacity> */}
   
@@ -94,7 +95,7 @@ class SelectionScreen extends Component {
             <List>   
                   {
                    AllRow.length === 0
-                      ?<Image style={styles.loading} source={require('../assets/2.gif')} />
+                      ?<Image style={styles.loading} source={require('../assets/ajax-loader.gif')} />
                       :AllRow
                   } 
             </List>
@@ -105,7 +106,7 @@ class SelectionScreen extends Component {
     );
   }
 }
-
+// <----------------------- ZONE CSS ---------------------------->
 const styles = StyleSheet.create({
 
   MainContainer: {
@@ -128,7 +129,14 @@ const styles = StyleSheet.create({
     // Setting up image height.
     height: 44
 
-  }
+  },
+  loading:{
+    position: "absolute",
+    justifyContent:"center",
+    top : 400,
+    left: '45%'
+  },
+
 });
 
 function mapStateToProps(state) {
