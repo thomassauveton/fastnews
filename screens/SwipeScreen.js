@@ -31,7 +31,7 @@ class SwipeScreen extends Component {
 // Connexion au backend via le componentWillMount & un Fetch vers Heroku
 
    componentWillMount(){
-    fetch("http://10.2.3.212:3000/")
+    fetch("http://192.168.43.236:3000/")
     .then(response => response.json())
     .then((reponseJson)=> {
       // console.log("reponse json : ",reponseJson.data.articles[2].author)
@@ -54,7 +54,7 @@ class SwipeScreen extends Component {
   var title = this.state.articles[this.indexArticle].title;
   var description = this.state.articles[this.indexArticle].description;
   var urlToImage = this.state.articles[this.indexArticle].urlToImage;
-  const photoUrl = 'http://10.2.3.212:3000/info?url=' + url;
+  const photoUrl = 'http://192.168.43.236:3000/info?url=' + url;
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {

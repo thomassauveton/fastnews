@@ -26,18 +26,31 @@ import Swipeout from 'react-native-swipeout';
 import {connect} from 'react-redux';
 
 class SelectionScreen extends Component {
+
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+    'Roboto': require('native-base/Fonts/Roboto.ttf'),
+    'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+   });
+  }
+
   render() {
     var AllRow = []
     if (this.props.Cards.length >0 ) {
       // console.log("retour cards",this.props.Cards)
+      var ctx=this
       AllRow = this.props.Cards.map(function (Card, i) {
         var swipeoutBtns = [
           {
-            text: 'Delete'
+            backgroundColor: "red",
+            color : "#FFF",
+            onPress: ()=>ctx.props.deleteCard(i),
+            text: 'Delete',
           }
         ]
   
           return (
+          
             <Swipeout right={swipeoutBtns}>
             <View>
             <ListItem thumbnail>
@@ -53,7 +66,7 @@ class SelectionScreen extends Component {
   
                 {/* <TouchableOpacity style={styles.imageShadowTimer}activeOpacity = { .5 } onPress={ this.callFun }>> */}
                 {/* <Image source={require('../assets/screenshot2.jpg')} /> */}
-                <Button transparent>
+                <Button transparent >
                   <Text>View</Text>
                 </Button>
                 {/* </TouchableOpacity> */}
@@ -119,7 +132,21 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {Cards: state.Cards}
-}
+  return ({
+  Cards: state.Cards,
+  Delete : state.Delete,
 
-export default connect(mapStateToProps, null)(SelectionScreen);
+})
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteCard(position) { 
+     dispatch({
+     type: 'deleteCard',
+     position :position,
+
+    }) 
+   }
+  }
+ }
+export default connect(mapStateToProps, mapDispatchToProps)(SelectionScreen);
