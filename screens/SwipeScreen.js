@@ -20,7 +20,7 @@ class SwipeScreen extends Component {
  //Constructor avec les états de départ en props 
   constructor(props) {
     super(props);
-    this.indexArticle = 0;
+    this.indexArticle = -1;
     this.state = {
       result: true,
       articles:[],
@@ -46,30 +46,26 @@ class SwipeScreen extends Component {
     //Function qui s edéclanche au boutton du like
  handelpress(){
 
-  //console.log(this.state.articles[6].url)
+  // console.log("this.indexArticle",this.indexArticle);
+  
   // Compilation des url du serveur + url de l'image de l'articles
   // Button like  cree l'url de l'article au backend qui lance puppeter et qui génère le screenshot
   var url = this.state.articles[this.indexArticle].url;
   var title = this.state.articles[this.indexArticle].title;
   var description = this.state.articles[this.indexArticle].description;
+  var urlToImage = this.state.articles[this.indexArticle].urlToImage;
   const photoUrl = 'http://10.2.3.212:3000/info?url=' + url;
   console.log(photoUrl)
   //envoie de la const photourl au backend 
   fetch(photoUrl, {
       method: 'GET',
-
       //reponse du back au front
   }).then((response)=> {
       return response._bodyText;
       //Sa convertie en Data pour générer l'image
   }).then((data)=> {
-      //console.log('second res: ' + JSON.stringify(data));
-      // ImageTools.getImageFromBase64(data).then(function(image) {
-      //     console.log("Image --> ", image)
-      // });
-
-      console.log({ data, title, description , url });
-      this.props.handleScreenShot(data)
+      console.log( title, description , "url",url, "photoUrl", photoUrl, "urlToImage",urlToImage );
+      this.props.handleScreenShot(`data:image/gif;base64,${data}`, title, description, photoUrl, urlToImage)
       this.setState({image: `data:image/gif;base64,${data}`})
   }).catch((err)=> {
       console.log('err: ' + err.message);
@@ -81,12 +77,12 @@ this.swiper.swipeRight();
 }
 
   render() {
- if(this.state.loading){
-  return( 
-    <View > 
-      <ActivityIndicator size="large" color="#0c9"/>
-    </View>
-)}
+//  if(this.state.loading){
+//   return( 
+//     <View > 
+//       <ActivityIndicator size="large" color="#0c9"/>
+//     </View>
+// )}
 // Variables d'affichage sur la card / Via les differents champs de L'API
   var author;
   var title;
@@ -124,33 +120,6 @@ this.swiper.swipeRight();
       }
 
 
-
-    
-
-
-  // for (let i = 0; i < this.state.articles.length; i++) {
-    
-  //     // console.log("Titre  :", this.state.articles[2].author)
-  //     author =  this.state.articles[i].author;
-  //     title = this.state.articles[i].title;
-  //     urlToImage = this.state.articles[i].urlToImage;
-  //     description = this.state.articles[i].description;
-  //     url = this.state.articles[i].url; 
-  //      console.log("Titre Article",this.state.articles[i].title);
-  //     // console.log(this.state.articles[10].urlToImage)
-  //   }
-  //  }
-
-  // if(this.state.articles.length >0) {
-  //   // console.log("Titre  :", this.state.articles[2].author)
-  //   author =  this.state.articles[5].author;
-  //   title = this.state.articles[5].title;
-  //   urlToImage = this.state.articles[5].urlToImage;
-  //   description = this.state.articles[5].description;
-  //   url = this.state.articles[5 ].url;
-
-  //   // console.log(this.state.articles[10].urlToImage)
-  // }
   //Condition pour le loading de la page : le temps que la card recupere les data de l'API un ecran de loading s'affiche
 
     if(this.state.articles.length == 0){
@@ -191,8 +160,6 @@ this.swiper.swipeRight();
 
           onSwiped={() => console.log('onSwiped')}
           onSwipedLeft={() => console.log('onSwipedLeft')}
-         
-          
         >
 
         { NewsList }
@@ -203,11 +170,12 @@ this.swiper.swipeRight();
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={[styles.button,styles.red]} onPress={()=>{
               this.swiper.swipeLeft();
+              this.indexArticle++
             }}>
               <Image source={require('../assets/red.png')} resizeMode={'contain'} style={{ height: 62, width: 62 }} />
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button,styles.orange]} onPress={() => {
-              this.indexArticle++;
+              this.indexArticle--;
               this.swiper.goBackFromLeft();
             }}>
               <Image source={require('../assets/back.png')} resizeMode={'contain'} style={{ height: 32, width: 32, borderRadius: 5 }} />
@@ -390,4 +358,23 @@ const styles = StyleSheet.create({
 
 });
 
-export default SwipeScreen;
+// Fonction permetant le dispatch
+function mapDispatchToProps(dispatch) {
+  return {
+    handleScreenShot(screenshot, title, description, photoUrl, urlToImage) { 
+     dispatch({
+     type: 'handleScreenShot',
+     screenshot :screenshot,
+     title: title,
+     description: description,
+     photoUrl: photoUrl,
+     urlToImage:urlToImage
+    }) 
+   }
+  }
+ }
+//  Connection du composant avec redux ( null : pas de reception venant de redux et mapD: envoi vers redux (SwipeScreen):redux devient le parent du composant)
+ export default connect(
+   null, 
+   mapDispatchToProps
+ )(SwipeScreen);

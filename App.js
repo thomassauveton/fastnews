@@ -2,14 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './components/Navigation'
 // import of my reducers
-import pictures from './components/Reducers/ScreenshotReducer.js';
+import Cards from './components/Reducers/ScreenshotReducer.js';
 
 // Import modules related to Redux
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
-const store = createStore(combineReducers({pictures}));
-
-
+const store = createStore(combineReducers({Cards}));
 
 
 // In App.js, I just need to return my Navigation component. It is inside this component, that my components are rendered.

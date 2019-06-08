@@ -1,60 +1,125 @@
-import React, { Component } from 'react';
-import { Container, Header, Content,Note, List, ListItem, Thumbnail, Text, Left, Body, Right, Button,View } from 'native-base';
-import {note, numberOfLines,ImageBackground} from "react-native";
+import React, {Component} from 'react';
+import {
+  Container,
+  Header,
+  Content,
+  Note,
+  List,
+  ListItem,
+  Thumbnail,
+  Text,
+  Left,
+  Body,
+  Right,
+  Button,
+  View
+} from 'native-base';
+import {
+  note,
+  numberOfLines,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  TouchableOpacity
+} from "react-native";
 import Swipeout from 'react-native-swipeout';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-
- class SelectionScreen extends Component {
+class SelectionScreen extends Component {
   render() {
-    var swipeoutBtns = [
-        {
-          text: 'Delete'
-        }
-      ]
-    return (
-
-     
-      <Container>
-         <ImageBackground
-        style={{flex: 1}}
-        source={require("../assets/background.png")}
-      >
-        
-        <Content style={{marginTop:"20%"}}>
-          <List>
-          <Swipeout right={swipeoutBtns}>
-  <View>
+    var AllRow = []
+    if (this.props.Cards.length >0 ) {
+      // console.log("retour cards",this.props.Cards)
+      AllRow = this.props.Cards.map(function (Card, i) {
+        var swipeoutBtns = [
+          {
+            text: 'Delete'
+          }
+        ]
+  
+          return (
+            <Swipeout right={swipeoutBtns}>
+            <View>
             <ListItem thumbnail>
               <Left>
-                <Thumbnail square source={{ uri: 'Image URL' }} />
+                <Thumbnail square source={{uri:Card.urlToImage}}/>
               </Left>
               <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>Its time to build a difference . .</Text>
+                <Text>{Card.title}</Text>
+                <Text note numberOfLines={1}>{Card.description}
+                </Text>
               </Body>
               <Right>
+  
+                {/* <TouchableOpacity style={styles.imageShadowTimer}activeOpacity = { .5 } onPress={ this.callFun }>> */}
+                {/* <Image source={require('../assets/screenshot2.jpg')} /> */}
                 <Button transparent>
                   <Text>View</Text>
                 </Button>
+                {/* </TouchableOpacity> */}
+  
               </Right>
+  
             </ListItem>
             </View>
-</Swipeout>
-          </List>
-        </Content>
+            </Swipeout>
+          )
+        })
+    }
+    return (
+
+      <Container>
+        <ImageBackground
+          style={{
+          flex: 1
+        }}
+          source={require("../assets/background.png")}>
+
+          <Content style={{
+            marginTop: "20%"
+          }}>
+            <List>   
+                  {
+                   AllRow.length === 0
+                      ?<Image style={styles.loading} source={require('../assets/2.gif')} />
+                      :AllRow
+                  } 
+            </List>
+          </Content>
         </ImageBackground>
       </Container>
-      
+
     );
   }
 }
-function mapStateToProps(state) {
-  console.log("Affichage",state)
-  return { pictures: state }
 
+const styles = StyleSheet.create({
+
+  MainContainer: {
+
+    flex: 1,
+
+    // Set content's vertical alignment.
+    justifyContent: 'center',
+
+    // Set content's horizontal alignment.
+    alignItems: 'center',
+
+    backgroundColor: '#FFF8E1'
+  },
+
+  ImageClass: {
+    // Setting up image width.
+    width: 250,
+
+    // Setting up image height.
+    height: 44
+
+  }
+});
+
+function mapStateToProps(state) {
+  return {Cards: state.Cards}
 }
-export default connect(
-  mapStateToProps,
-  null
-)(SelectionScreen);
+
+export default connect(mapStateToProps, null)(SelectionScreen);
