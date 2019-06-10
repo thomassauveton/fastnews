@@ -236,12 +236,14 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
   justifyContent: 'center',
+  overflow : 'hidden'
   },
   card2: {
     backgroundColor: 'white',
     flex:1,
     alignItems: 'center',
   justifyContent: 'center',
+  overflow : 'hidden'
   },
   label: {
     lineHeight: 400,

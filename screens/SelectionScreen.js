@@ -35,6 +35,7 @@ class SelectionScreen extends Component {
     super(props);
     this.state = {
       modalVisible : false,
+      uri: null
     }
   }
 
@@ -86,7 +87,7 @@ this.setState({modalVisible: !this.state.modalVisible});
   
                 {/* <TouchableOpacity style={styles.imageShadowTimer}activeOpacity = { .5 } onPress={ this.callFun }>> */}
                 {/* <Image source={require('../assets/screenshot2.jpg')} /> */}
-                <Button transparent onPress={() => {ctx.toggleModal(true)}}>
+                <Button transparent onPress={() => { ctx.setState({uri: Card.screenshot}); ctx.toggleModal(true)}}>
                   <Text>Lire</Text>
                 </Button>
                 {/* </TouchableOpacity> */}
@@ -94,22 +95,7 @@ this.setState({modalVisible: !this.state.modalVisible});
               </Right>
   
             </ListItem>
-            <Modal animationType = {"slide"} transparent = {false}
-           visible = {ctx.state.modalVisible}
-           onRequestClose = {() => { console.log("Modal has been closed.") } }>
-           <ScrollView>
-           <View style = {styles.modal}>
            
-           <Image style={{width: 400, height: 19000,resizeMode:'contain'}} source={{uri:Card.screenshot}} />
-
-              <TouchableHighlight onPress = {() => {
-                 ctx.toggleModal(ctx.state.modalVisible)}}>
-                 
-                 <Text style = {styles.text}>Close Modal</Text>
-              </TouchableHighlight>
-           </View>
-           </ScrollView>
-        </Modal>
 
             </View>
             </Swipeout>
@@ -136,6 +122,23 @@ this.setState({modalVisible: !this.state.modalVisible});
                       :AllRow
                   } 
             </List>
+
+            <Modal animationType = {"slide"} transparent = {false}
+           visible = {this.state.modalVisible}
+           onRequestClose = {() => { console.log("Modal has been closed.") } }>
+           <ScrollView>
+           <View style = {styles.modal}>
+           
+           <Image style={{width: 400, height: 19000,resizeMode:'contain'}} source={{uri:this.state.uri}} />
+
+              <TouchableHighlight onPress = {() => {
+                 ctx.toggleModal(this.state.modalVisible)}}>
+                 
+                 <Text style = {styles.text}>Close Modal</Text>
+              </TouchableHighlight>
+           </View>
+           </ScrollView>
+        </Modal>
           </Content>
         </ImageBackground>
       </Container>
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
-    marginTop:-6300
+    marginTop:-5800
  },
  text: {
     color: '#3f2949',
