@@ -20,7 +20,9 @@ import {
   StyleSheet,
   Image,
   ImageBackground,
-  TouchableOpacity
+  Modal,
+  ScrollView,
+  TouchableHighlight
 } from "react-native";
 import Swipeout from 'react-native-swipeout';
 import {connect} from 'react-redux';
@@ -28,12 +30,29 @@ console.disableYellowBox=true;
 
 class SelectionScreen extends Component {
 
+  constructor(props){
+
+    super(props);
+    this.state = {
+      modalVisible : false,
+    }
+  }
+
+  // COrrection bug roboto android 
   async componentWillMount() {
     await Expo.Font.loadAsync({
     'Roboto': require('native-base/Fonts/Roboto.ttf'),
     'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
    });
   }
+
+
+
+toggleModal() {
+
+this.setState({modalVisible: !this.state.modalVisible});
+}
+
 
   render() {
     var AllRow = []
@@ -67,7 +86,7 @@ class SelectionScreen extends Component {
   
                 {/* <TouchableOpacity style={styles.imageShadowTimer}activeOpacity = { .5 } onPress={ this.callFun }>> */}
                 {/* <Image source={require('../assets/screenshot2.jpg')} /> */}
-                <Button transparent>
+                <Button transparent onPress={() => {ctx.toggleModal(true)}}>
                   <Text>Lire</Text>
                 </Button>
                 {/* </TouchableOpacity> */}
@@ -75,8 +94,26 @@ class SelectionScreen extends Component {
               </Right>
   
             </ListItem>
+            <Modal animationType = {"slide"} transparent = {false}
+           visible = {ctx.state.modalVisible}
+           onRequestClose = {() => { console.log("Modal has been closed.") } }>
+           <ScrollView>
+           <View style = {styles.modal}>
+           
+           <Image style={{width: 400, height: 19000,resizeMode:'contain'}} source={{uri:Card.screenshot}} />
+
+              <TouchableHighlight onPress = {() => {
+                 ctx.toggleModal(ctx.state.modalVisible)}}>
+                 
+                 <Text style = {styles.text}>Close Modal</Text>
+              </TouchableHighlight>
+           </View>
+           </ScrollView>
+        </Modal>
+
             </View>
             </Swipeout>
+            
           )
         })
     }
@@ -136,10 +173,20 @@ const styles = StyleSheet.create({
     top : 400,
     left: '45%'
   },
-
+  modal: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    marginTop:-6300
+ },
+ text: {
+    color: '#3f2949',
+    marginTop: 10
+ }
 });
 
 function mapStateToProps(state) {
+ console.log(state) 
   return ({
   Cards: state.Cards,
   Delete : state.Delete,

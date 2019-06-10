@@ -11,6 +11,7 @@ import HomeScreen from '../screens/HomeScreen';
 import SwipeScreen from '../screens/SwipeScreen';
 import AccountScreen from '../screens/AccountScreen';
 import SelectionScreen from '../screens/SelectionScreen';
+// import ScreenShot from '../screens/ScreenShot'
 
 // Here, I can create the global navigation which both contains my three first
 // page (without the bottom tab) as well as the whole MainNavigator component
@@ -21,6 +22,7 @@ var StackNavigator = createStackNavigator({
   Profil: AccountScreen,
   Selection: SelectionScreen,
   News: SwipeScreen,
+  // ScreenShot:ScreenShot
 
   // MainNavigator must my put inside the stack navigator (necessaire pour
   // rappeler une nav dans la nav firts) ? MainNavigator: MainNavigator

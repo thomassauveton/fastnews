@@ -22,10 +22,10 @@ export default class AccountScreen extends Component {
               <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
 
               <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Option 1</Text>  
+                <Text>Modifier le Profil</Text>  
               </TouchableOpacity>              
               <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Option 2</Text> 
+                <Text>Enregistrer</Text>
               </TouchableOpacity>
             </View>
         </View>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom:20,
     width:250,
     borderRadius:30,
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#33c2c5",
   },
 });
  
